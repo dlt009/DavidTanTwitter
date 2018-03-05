@@ -2,8 +2,8 @@
 //  APIManager.swift
 //  twitter_alamofire_demo
 //
-//  Created by Charles Hieger on 4/4/17.
-//  Copyright © 2017 Charles Hieger. All rights reserved.
+//  Created by David Tan on 3/4/18.
+//  Copyright © 2018 David Tan. All rights reserved.
 //
 
 import Foundation
@@ -14,9 +14,8 @@ import KeychainAccess
 
 class APIManager: SessionManager {
     
-    // MARK: TODO: Add App Keys
-    static let consumerKey = "YOUR_KEY_HERE"
-    static let consumerSecret = "YOUR_SECRET_HERE"
+    static let consumerKey = "wL8F1KR8HI2Q7YHbtW7F1duUw"
+    static let consumerSecret = "uOxVTBy47lbqujAgw4ljTl2ZbMN1c1a3OFmHsU1zfQwFa6RifP"
 
     static let requestTokenURL = "https://api.twitter.com/oauth/request_token"
     static let authorizeURL = "https://api.twitter.com/oauth/authorize"
@@ -37,10 +36,37 @@ class APIManager: SessionManager {
             self.getCurrentAccount(completion: { (user, error) in
                 if let error = error {
                     failure(error)
-                } else if let user = user {
+                } else if let user = user { // Successful authorization
                     print("Welcome \(user.name)")
+                    print("token: \(credential.oauthToken)")
+                    print("secret: \(credential.oauthTokenSecret)")
                     
-                    // MARK: TODO: set User.current, so that it's persisted
+                    let adapter = self.oauthManager.requestAdapter//
+                    
+                    let sessionManager = SessionManager.default
+                    sessionManager.adapter = adapter
+                    
+                    // Send authorized request
+                    let url = URL(string: "https://api.twitter.com/1.1/account/verify_credentials.json")!
+                    sessionManager.request(url).responseJSON(completionHandler: { (response) in
+                        
+                        if let responseDictionary = response.result.value as? [String: Any] {
+                            print(responseDictionary)
+                        }
+                    })
+                    
+                    // Store credentials
+                    let keychain = Keychain()
+                    keychain["token_key"] = credential.oauthToken
+                    keychain["secret_key"] = credential.oauthTokenSecret
+                    
+                    // Get and set credentials
+                    if let token = keychain["token_key"],
+                        let secret = keychain["secret_key"] {
+                        self.oauthManager.client.credential.oauthToken = token
+                        self.oauthManager.client.credential.oauthTokenSecret = secret
+                    }
+                    //MARK: TODO: set User.current, so that it's persisted
                     
                     success()
                 }

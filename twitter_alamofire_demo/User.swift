@@ -2,8 +2,8 @@
 //  User.swift
 //  twitter_alamofire_demo
 //
-//  Created by Charles Hieger on 6/17/17.
-//  Copyright © 2017 Charles Hieger. All rights reserved.
+//  Created by David Tan on 3/4/18.
+//  Copyright © 2018 David Tan. All rights reserved.
 //
 
 import Foundation
