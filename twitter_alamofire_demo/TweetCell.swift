@@ -12,9 +12,23 @@ class TweetCell: UITableViewCell {
     
     @IBOutlet weak var tweetTextLabel: UILabel!
     
+    @IBOutlet weak var repliesImageView: UIImageView!
+    @IBOutlet weak var repliesTextLabel: UILabel!
+    
+    @IBOutlet weak var retweetImageView: UIImageView!
+    @IBOutlet weak var retweetTextLabel: UILabel!
+    
+    @IBOutlet weak var favoriteImageView: UIImageView!
+    @IBOutlet weak var favoriteTextLabel: UILabel!
+    
+    @IBOutlet weak var messageImageView: UIImageView!
+    
     var tweet: Tweet! {
         didSet {
             tweetTextLabel.text = tweet.text
+            repliesTextLabel.text = "140"
+            retweetTextLabel.text = "360"
+            favoriteTextLabel.text = "4"
         }
     }
     
