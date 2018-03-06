@@ -20,6 +20,10 @@ class Tweet {
     var user: User // Contains name, screenname, etc. of tweet author
     var createdAtString: String // Display date
     
+    var replyCount: Int? // Update replies count label
+    var name: String // User name
+    var screenName: String // Screen name
+    
     // MARK: - Create initializer with dictionary
     init(dictionary: [String: Any]) {
         id = dictionary["id"] as! Int64
@@ -31,6 +35,10 @@ class Tweet {
         
         let user = dictionary["user"] as! [String: Any]
         self.user = User(dictionary: user)
+        
+        name = user["name"] as! String
+        screenName = user["screen_name"] as! String
+        replyCount = dictionary["reply_count"] as? Int
         
         let createdAtOriginalString = dictionary["created_at"] as! String
         let formatter = DateFormatter()
