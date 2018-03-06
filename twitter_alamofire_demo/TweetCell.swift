@@ -56,8 +56,9 @@ class TweetCell: UITableViewCell {
         if tweet.retweeted == false {
             tweet.retweeted = true
             tweet.retweetCount += 1
+            retweetTextLabel.text = "\(tweet.retweetCount)"
             // Update labels
-            self.refreshData()
+            //self.refreshData()
             APIManager.shared.retweet(tweet) { (tweet: Tweet?, error: Error?) in
                 if let  error = error {
                     print("Error retweeting tweet: \(error.localizedDescription)")
@@ -70,8 +71,9 @@ class TweetCell: UITableViewCell {
         else {
             tweet.retweeted = false
             tweet.retweetCount -= 1
+            retweetTextLabel.text = "\(tweet.retweetCount)"
             // Update labels
-            self.refreshData()
+            //self.refreshData()
             APIManager.shared.unretweet(tweet) { (tweet: Tweet?, error: Error?) in
                 if let  error = error {
                     print("Error unretweeting tweet: \(error.localizedDescription)")
@@ -92,6 +94,7 @@ class TweetCell: UITableViewCell {
         if tweet.favorited == false {
             tweet.favorited = true
             tweet.favoriteCount += 1
+            favoriteTextLabel.text = "\(tweet.favoriteCount)"
             // Update labels
             self.refreshData()
             APIManager.shared.favorite(tweet) { (tweet: Tweet?, error: Error?) in
@@ -106,8 +109,9 @@ class TweetCell: UITableViewCell {
         else {
             tweet.favorited = false
             tweet.favoriteCount -= 1
+            favoriteTextLabel.text = "\(tweet.favoriteCount)"
             // Update labels
-            self.refreshData()
+            //self.refreshData()
             APIManager.shared.unfavorite(tweet) { (tweet: Tweet?, error: Error?) in
                 if let  error = error {
                     print("Error unfavoriting tweet: \(error.localizedDescription)")
