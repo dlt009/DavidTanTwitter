@@ -65,6 +65,16 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         APIManager.shared.logout()
     }
     
+    
+    @IBAction func didTapProfile(_ sender: Any) {
+        
+    }
+    
+    @IBAction func didTapEdit(_ sender: Any) {
+        
+    }
+    
+    
     // Retrieve tweets
     func getTweets() {
         APIManager.shared.getHomeTimeLine { (tweets, error) in
@@ -82,14 +92,35 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         refreshControl.endRefreshing()
     }
     
-    /*
+    
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      // Get the new view controller using segue.destinationViewController.
      // Pass the selected object to the new view controller.
-     }
-     */
+        if (segue.identifier == "detailSegue") {
+            let cell = sender as! UITableViewCell
+            if let indexPath = tableView.indexPath(for: cell) {
+                let tweet = tweets[indexPath.row]
+                let detailViewController = segue.destination as! DetailViewController
+                detailViewController.tweet = tweet
+            }
+        }
+        else if (segue.identifier == "composeSegue") {
+            //let vc = segue.destination as! ComposeViewController
+            //vc.user = user
+        }
+        else if (segue.identifier == "profileSegue") {
+            //let vc = segue.destination as! ProfileViewController
+            //vc.user = user
+        }
+        
+        
+        
+        
+    }
+     
+ 
     
 }
