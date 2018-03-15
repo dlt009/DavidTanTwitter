@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  twitter_alamofire_demo
 //
-//  Created by Charles Hieger on 4/4/17.
-//  Copyright © 2017 Charles Hieger. All rights reserved.
+//  Created by David Tan on 3/4/18.
+//  Copyright © 2018 David Tan. All rights reserved.
 //
 
 import UIKit
@@ -28,10 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    // MARK: TODO: Open URL
     // OAuth step 2
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
         // Handle urlcallback sent from Twitter
+        print("url: \(url.description)")
         APIManager.shared.handle(url: url)
         return true
     }
